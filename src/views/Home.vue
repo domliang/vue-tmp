@@ -9,7 +9,7 @@
 <script>
 // @ is an alias to /src
 import { mapState } from 'vuex'
-import { setInterval } from 'timers'
+import { setInterval, clearInterval } from 'timers'
 
 import HelloWorld from '@/components/HelloWorld.vue'
 
@@ -24,11 +24,14 @@ export default {
     })
   },
   mounted () {
-    setInterval(() => {
+    this.intervalTimer = setInterval(() => {
       this.$store.dispatch({
         type: 'increment'
       })
     }, 1000)
+  },
+  beforeDestroy () {
+    clearInterval(this.intervalTimer)
   }
 }
 </script>
